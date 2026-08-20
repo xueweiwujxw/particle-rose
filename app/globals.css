@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root { color-scheme: dark; --pink: #ff7189; }
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; overflow: hidden; background: #07080a; }
+body { color: #f5efec; font-family: Arial, "Noto Sans SC", sans-serif; }
+button { font: inherit; }
+
+.experience { position: relative; width: 100vw; height: 100svh; min-height: 600px; overflow: hidden; background: radial-gradient(circle at 50% 43%, #111116 0, #090a0d 48%, #060709 100%); }
+.experience::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at 50% 46%, transparent 0 28%, rgba(7,8,10,.10) 54%, rgba(7,8,10,.84) 100%); }
+.experience::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .14; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E"); mix-blend-mode: soft-light; }
+.rose-canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+.rose-canvas:active { cursor: grabbing; }
+.scene-frame { display: none; }
+.scene-frame::before, .scene-frame::after { content: ""; position: absolute; background: rgba(255,225,225,.055); }
+.scene-frame::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+.scene-frame::after { top: 50%; left: 0; right: 0; height: 1px; opacity: .4; }
+
+.topbar, footer, .controls, .gesture-hint, .loading { position: absolute; z-index: 3; }
+.topbar { top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 30px 40px; border-bottom: 1px solid rgba(255,255,255,.09); letter-spacing: .22em; font-size: 10px; }
+.brand { display: flex; align-items: center; gap: 11px; font-weight: 700; }
+.brand-mark { color: var(--pink); font-size: 17px; text-shadow: 0 0 12px rgba(255,113,137,.9); }
+.edition { color: rgba(255,255,255,.33); }
+.gesture-hint { left: calc(50% + min(27vh, 21vw)); bottom: 18%; display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.46); font-size: 10px; letter-spacing: .12em; opacity: 0; transition: opacity .45s ease; }
+.gesture-hint.visible { opacity: 1; animation: hintPulse 2.6s ease-in-out infinite; }
+.mouse-icon { width: 17px; height: 25px; border: 1px solid rgba(255,255,255,.5); border-radius: 10px; position: relative; }
+.mouse-icon::after { content: ""; position: absolute; left: 7px; top: 5px; width: 2px; height: 5px; border-radius: 2px; background: var(--pink); }
+@keyframes hintPulse { 50% { opacity: .38; } }
+.controls { right: 38px; top: 50%; display: flex; flex-direction: column; transform: translateY(-50%); }
+.controls button { min-width: 114px; padding: 12px 14px; color: rgba(255,255,255,.58); background: rgba(12,13,16,.36); border: 1px solid rgba(255,255,255,.11); cursor: pointer; font-size: 10px; letter-spacing: .08em; backdrop-filter: blur(8px); transition: .2s ease; }
+.controls button + button { border-top: 0; }
+.controls button:hover { color: white; border-color: rgba(255,113,137,.5); background: rgba(255,113,137,.07); }
+.status { display: inline-block; width: 5px; height: 5px; margin-right: 8px; border-radius: 50%; background: #666; }
+.status.active { background: var(--pink); box-shadow: 0 0 9px var(--pink); }
+.loading { inset: 50% auto auto 50%; transform: translate(-50%, -50%); color: rgba(255,255,255,.34); font-size: 10px; letter-spacing: .18em; transition: opacity .5s ease; }
+.loading span { color: var(--pink); }
+.is-ready .loading { opacity: 0; pointer-events: none; }
+footer { left: 40px; right: 40px; bottom: 25px; display: flex; justify-content: space-between; color: rgba(255,255,255,.22); font-size: 8px; letter-spacing: .24em; }
+
+@media (max-width: 760px) {
+  .experience { min-height: 520px; }
+  .topbar { padding: 22px 20px; }
+  .edition { display: none; }
+  .scene-frame { width: 88vw; height: 76vh; }
+  .controls { top: 82px; right: 14px; transform: none; }
+  .controls button { min-width: 98px; padding: 9px 10px; }
+  .gesture-hint { left: 50%; bottom: 12%; transform: translateX(-50%); white-space: nowrap; }
+  footer { left: 20px; right: 20px; bottom: 18px; }
+  footer span:last-child { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { .gesture-hint.visible { animation: none; } }
