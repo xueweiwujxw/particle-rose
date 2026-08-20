@@ -26,7 +26,7 @@ function addParticle(target: number[], x: number, y: number, z: number, r: numbe
 }
 
 async function buildScene(mobile: boolean) {
-  const response = await fetch("/rose-points.bin");
+  const response = await fetch("./rose-points.bin");
   if (!response.ok) throw new Error("玫瑰模型加载失败");
   const buffer = await response.arrayBuffer();
   const pointCount = new DataView(buffer).getUint32(0, true);
